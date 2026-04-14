@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EARIST-Manila Blog</title>
+  <style>
+    :root {
+      --bg: #f5efe7;
+      --paper: #fffdf9;
+      --ink: #1c1b1a;
+      --muted: #665f59;
+      --line: #d8c7b6;
+      --signal: #d93b12;
+      --signal-deep: #9f2408;
+      --headline: "Georgia", "Times New Roman", serif;
+      --body: "Trebuchet MS", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--body);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, #fff8ef 0, #fff8ef 20%, transparent 45%),
+        linear-gradient(180deg, #f8f1e8 0%, var(--bg) 100%);
+    }
+
+    .topbar {
+      background: #171717;
+      color: #fff;
+      padding: 12px 22px;
+      border-bottom: 4px solid var(--signal);
+    }
+
+    .topbar-inner,
+    .page-wrap,
+    footer {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-family: var(--headline);
+      font-size: 1.7rem;
+      font-weight: bold;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 18px;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    marquee {
+      background: var(--signal);
+      color: #fff;
+      font-weight: bold;
+      padding: 12px 0;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .page-wrap {
+      padding: 28px 22px 42px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    .lead-story,
+    .sidebar-card,
+    .recent-posts,
+    .section-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 32px rgba(73, 49, 28, 0.08);
+    }
+
+    .lead-story {
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lead-story::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(90deg, var(--signal) 0%, #f06f2f 100%);
+    }
+
+    .kicker,
+    .card-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: bold;
+      color: var(--signal-deep);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--headline);
+      line-height: 1.05;
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 4vw, 4.5rem);
+      margin-bottom: 16px;
+      max-width: 10ch;
+    }
+
+    .lead-story p,
+    .section-card p,
+    .sidebar-card p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 0;
+    }
+
+    .sidebar-stack {
+      display: grid;
+      gap: 20px;
+    }
+
+    .sidebar-card {
+      padding: 22px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 24px;
+    }
+
+    .recent-posts {
+      padding: 28px;
+    }
+
+    .recent-posts h2,
+    .sections h2 {
+      font-size: 1.7rem;
+      margin-bottom: 18px;
+    }
+
+    .recent-posts ul {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .recent-posts li {
+      margin-bottom: 16px;
+      line-height: 1.6;
+      font-size: 1.02rem;
+    }
+
+    .sections {
+      display: grid;
+      gap: 20px;
+    }
+
+    .section-card {
+      padding: 24px;
+    }
+
+    .section-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.4rem;
+    }
+
+    .issues-board {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    .issue-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 32px rgba(73, 49, 28, 0.08);
+      padding: 24px;
+    }
+
+    .issue-card h3 {
+      font-size: 1.45rem;
+      margin-bottom: 10px;
+      font-family: var(--headline);
+    }
+
+    .issue-card p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 0;
+    }
+
+    .section-streams {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .stream-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 32px rgba(73, 49, 28, 0.08);
+      padding: 22px;
+    }
+
+    .stream-card h3 {
+      font-family: var(--headline);
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .stream-card p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    footer {
+      padding: 24px 22px 40px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.96rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid,
+      .content-grid,
+      .issues-board,
+      .section-streams {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">EARIST-Manila</div>
+      <nav>
+        <ul>
+          <li><a href="#top">Home</a></li>
+          <li><a href="#recent-posts">Recent Posts</a></li>
+          <li><a href="#issues">Issues</a></li>
+          <li><a href="#coverage">PH Issues</a></li>
+          <li><a href="#sections">Sections</a></li>
+          <li><a href="#footer">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <marquee behavior="scroll" direction="left" scrollamount="12">
+    Latest News | Public stories that matter | Fast updates | Sharp commentary | Community voices
+  </marquee>
+
+  <main class="page-wrap" id="top">
+    <section class="hero-grid">
+      <article class="lead-story">
+        <span class="kicker">Lead Blog</span>
+        <h1>Stories that move as fast as the public conversation</h1>
+        <p>
+          PulsePoint is an original newsroom-style blog homepage inspired by the energy of modern digital
+          news platforms. It highlights public-interest stories, explainers, opinion pieces, and culture
+          coverage in a cleaner editorial format with its own visual identity.
+        </p>
+      </article>
+
+      <div class="sidebar-stack">
+        <aside class="sidebar-card">
+          <span class="card-tag">What This Covers</span>
+          <h3>Blogs inspired by real-world news categories</h3>
+          <p>
+            This page mirrors the editorial rhythm of sites like Rappler by grouping content into
+            news, analysis, opinion, and lifestyle-focused storytelling.
+          </p>
+        </aside>
+
+        <aside class="sidebar-card">
+          <span class="card-tag">Editorial Tone</span>
+          <h3>Direct, current, and reader-first</h3>
+          <p>
+            The layout emphasizes urgency and readability without duplicating another site's exact design,
+            colors, or structure.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <article class="recent-posts" id="recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+          <li>Cost of Living Watch: Inflation, food prices, and transport fares shaping daily household budgets</li>
+          <li>Jobs and Wages Briefing: Employment quality, salaries, and the push for more stable work</li>
+          <li>Climate Alert: Flooding, heat, storms, and disaster readiness across vulnerable communities</li>
+          <li>Governance Check: Corruption, accountability, and trust in public institutions</li>
+          <li>Digital Pilipinas: Misinformation, online safety, and the role of technology in civic life</li>
+        </ul>
+      </article>
+
+      <section class="sections" id="sections">
+        <h2>Inside the Blog</h2>
+
+        <article class="section-card">
+          <span class="card-tag">People and Policy</span>
+          <h3>Everyday issues behind the national conversation</h3>
+          <p>
+            The homepage now focuses on Philippine realities such as inflation, transport, schools, health,
+            jobs, agriculture, and local governance in a more issue-centered way.
+          </p>
+        </article>
+
+        <article class="section-card">
+          <span class="card-tag">Public Voice</span>
+          <h3>Commentary rooted in Philippine concerns</h3>
+          <p>
+            Instead of generic coverage labels, the page now frames stories around civic pressure points
+            that affect Filipino communities directly.
+          </p>
+        </article>
+
+        <article class="section-card">
+          <span class="card-tag">Community Life</span>
+          <h3>Human stories behind national statistics</h3>
+          <p>
+            Personal stories, local experiences, and grassroots realities add context to the broader
+            national issues shown across the homepage.
+          </p>
+        </article>
+      </section>
+    </section>
+
+    <section id="issues">
+      <div class="sections">
+        <h2>Key Issues</h2>
+      </div>
+      <div class="issues-board">
+        <article class="issue-card">
+          <span class="card-tag">Cost of Living</span>
+          <h3>Prices, food security, and household pressure</h3>
+          <p>
+            Rising prices, food affordability, electricity costs, and daily essentials remain among the most
+            visible pressures on Filipino households.
+          </p>
+        </article>
+
+        <article class="issue-card">
+          <span class="card-tag">Corruption and Accountability</span>
+          <h3>Governance, transparency, and public trust</h3>
+          <p>
+            Concerns about graft, misuse of public funds, and weak enforcement continue to shape how people
+            view institutions and leadership.
+          </p>
+        </article>
+
+        <article class="issue-card">
+          <span class="card-tag">Jobs and Wages</span>
+          <h3>Work quality, pay, and economic mobility</h3>
+          <p>
+            Beyond employment numbers, this issue area focuses on underemployment, insecure work, wage growth,
+            and the challenge of earning enough to keep up with daily expenses.
+          </p>
+        </article>
+
+        <article class="issue-card">
+          <span class="card-tag">Poverty and Hunger</span>
+          <h3>Social protection and unequal access</h3>
+          <p>
+            Poverty reduction, hunger, and access to support programs remain central to the country's
+            long-term development and social stability.
+          </p>
+        </article>
+
+        <article class="issue-card">
+          <span class="card-tag">Climate and Disasters</span>
+          <h3>Extreme weather, resilience, and adaptation</h3>
+          <p>
+            Floods, typhoons, heat, drought, and disaster preparedness are recurring national concerns with
+            strong local consequences.
+          </p>
+        </article>
+
+        <article class="issue-card">
+          <span class="card-tag">Disinformation and Digital Life</span>
+          <h3>Truth, platforms, and online influence</h3>
+          <p>
+            Social media misinformation, online manipulation, and platform accountability are now major
+            public-interest issues that shape elections, policy debates, and trust.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="coverage">
+      <div class="sections">
+        <h2>Philippine Issues</h2>
+      </div>
+      <div class="section-streams">
+        <article class="stream-card">
+          <span class="card-tag">Transport and Infrastructure</span>
+          <h3>Mobility, roads, rail, and public service delivery</h3>
+          <p>
+            Commuting costs, traffic, public transport quality, flood control, and infrastructure execution
+            all shape how people experience the state in everyday life.
+          </p>
+        </article>
+
+        <article class="stream-card">
+          <span class="card-tag">Education</span>
+          <h3>Learning gaps, school quality, and student futures</h3>
+          <p>
+            Schools remain a major national concern through classroom shortages, learning recovery,
+            affordability, and the long-term impact on opportunity.
+          </p>
+        </article>
+
+        <article class="stream-card">
+          <span class="card-tag">Health</span>
+          <h3>Hospitals, vaccines, mental health, and access to care</h3>
+          <p>
+            Public health capacity, medicine costs, local health services, and preventive care remain
+            critical to community well-being.
+          </p>
+        </article>
+
+        <article class="stream-card">
+          <span class="card-tag">Agriculture and Food</span>
+          <h3>Farm livelihoods, supply chains, and food stability</h3>
+          <p>
+            Farmers, fisheries, rice supply, and climate-sensitive production directly affect inflation,
+            rural livelihoods, and national food security.
+          </p>
+        </article>
+
+        <article class="stream-card">
+          <span class="card-tag">Public Safety and Justice</span>
+          <h3>Crime, rule of law, and institutional response</h3>
+          <p>
+            Safety, policing, case resolution, and the consistent application of the law continue to shape
+            public confidence and daily security.
+          </p>
+        </article>
+
+        <article class="stream-card">
+          <span class="card-tag">Housing and Urban Life</span>
+          <h3>Shelter, utilities, and livable communities</h3>
+          <p>
+            Rent, relocation, informal settlements, water access, and urban planning affect both dignity
+            and long-term quality of life.
+          </p>
+        </article>
+
+        <article class="stream-card">
+          <span class="card-tag">Territory and National Security</span>
+          <h3>West Philippine Sea and national sovereignty</h3>
+          <p>
+            Territorial integrity, maritime tensions, and defense readiness remain visible national issues
+            with diplomatic and economic consequences.
+          </p>
+        </article>
+
+        <article class="stream-card">
+          <span class="card-tag">OFWs and Migration</span>
+          <h3>Overseas workers, remittances, and protection abroad</h3>
+          <p>
+            Migrant labor continues to support the economy while raising questions about labor protection,
+            family separation, and government support systems.
+          </p>
+        </article>
+
+        <article class="stream-card">
+          <span class="card-tag">Youth and Civic Participation</span>
+          <h3>Representation, voice, and democratic engagement</h3>
+          <p>
+            Young Filipinos are increasingly central to debates on voting, organizing, digital discourse,
+            and the future direction of public life.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <p>&copy; 2026 EARIST-Manila Blog. All rights reserved.</p>
+  </footer>
+</body>
+</html>
