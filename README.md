@@ -1,0 +1,2 @@
+# blog
+EARIST-Manila BLOG
